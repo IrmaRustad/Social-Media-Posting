@@ -3,10 +3,37 @@
 import pyautogui
 import time
 import pyperclip
+import sqlite3
 
-                                    
 
-def subir_video_instagram() : 
+
+def subir_video_instagram(video_id) : 
+
+    conexion = sqlite3.connect('C:/Users/irma/Downloads/ig/videos.db')  # Cambiar la ruta y el nombre del archivo de base de datos  según sea necesario
+    cursor = conexion.cursor()
+
+    
+
+    consulta_description = f"SELECT description FROM videos WHERE id={video_id};"
+    consulta_videoname = f"SELECT name FROM videos WHERE id={video_id};"
+    
+
+    cursor.execute(consulta_description)
+
+    consulta_description = cursor.fetchone() 
+
+    cursor.execute(consulta_videoname)
+
+    consulta_videoname = cursor.fetchone()
+
+
+    
+
+
+        # Extraer los valores de las tuplas
+    description = consulta_description[0] if consulta_description else ""
+    videoname = consulta_videoname[0] if consulta_videoname else ""
+
 
     #abrir barra de busqueda y buscar "Google Chrome"
     pyautogui.hotkey("winleft", "s")
@@ -25,8 +52,6 @@ def subir_video_instagram() :
     time.sleep(1)
 
 
-    Video_name = pyautogui.prompt(text="", title="Ingresa el nombre del video")
-    video_description = pyautogui.prompt(text="", title="Ingresa el nombre del video")
 
     #buscar youtube
     url = "https://www.instagram.com/"
@@ -49,24 +74,24 @@ def subir_video_instagram() :
 
     time.sleep(2)
 
-    pyautogui.write("C:/Users/Eze Martin/Downloads/pyauto/instagram/")
+    pyautogui.write("C:/Users/irma/Downloads/pyauto/instagram/")
+    pyautogui.hotkey("enter")       
 
     time.sleep(2)
 
-    pyautogui.press("tab",presses=5, interval=0.8)
+    pyautogui.press("tab",presses=6, interval=0.8)
 
     time.sleep(2)
 
-    pyautogui.write(Video_name + ".mp4")
+    pyautogui.write(videoname + ".mp4")
     pyautogui.hotkey("enter")
 
     time.sleep(4)
 
-    #--------------------------------------------------------- esta bien  ^
     pyautogui.press("tab",presses=3, interval=0.8)
     pyautogui.hotkey("enter")
 
-    time.sleep(4)
+    time.sleep(4)           
 
     pyautogui.press("tab",presses=7, interval=0.8)
     pyautogui.hotkey("enter")
@@ -83,7 +108,7 @@ def subir_video_instagram() :
 
     time.sleep(4)
     pyautogui.press("tab",presses=4, interval=0.8)
-    pyautogui.write(video_description)
+    pyautogui.write(description)
 
     time.sleep(4)
 
@@ -154,3 +179,11 @@ def subir_video_instagram() :
 
     # Imprime el enlace copiado en la consola
     print("Enlace copiado:", enlace_copiado)
+
+    update_enlace = f"UPDATE videos SET posted='POSTED' , url = enlace_copiado WHERE id={video_id};"
+
+
+    conexion.close()
+
+
+subir_video_instagram(4)
