@@ -1,15 +1,15 @@
 import pyautogui
 import time
 
+def publicarPost(videoname, description,fecha,horas,minutos,AMoPM):
 
-def publicarStory(videoname, description,horas,fecha,minutos):
-    
-    pyautogui.press("tab",presses=8, interval=0.8)
+    pyautogui.press("tab",presses=6, interval=0.8)
     pyautogui.hotkey("enter")
 
     time.sleep(4)
 
     pyautogui.press("tab",presses=2, interval=0.8)
+    pyautogui.hotkey("enter")
     pyautogui.hotkey("enter")
 
     time.sleep(4)
@@ -21,20 +21,23 @@ def publicarStory(videoname, description,horas,fecha,minutos):
     pyautogui.write("C:/Users/irma/Downloads/pyauto/instagram")
     pyautogui.hotkey("enter")
 
-    time.sleep(2)
 
     pyautogui.press("tab",presses=5, interval=0.8)
 
-    time.sleep(2)
-
-    pyautogui.write(videoname)
-    time.sleep(2)
-    pyautogui.press("enter",presses=2, interval=0.8)
-
-    time.sleep(60)
-
-    pyautogui.press("tab",presses=8, interval=0.8)
+    pyautogui.write(videoname + ".PNG")
     pyautogui.hotkey("enter")
 
 
-    
+    time.sleep(2)
+
+    pyautogui.press("tab",presses=2, interval=0.8)
+
+    pyautogui.write(description)
+
+    time.sleep(2)
+
+    pyautogui.press("tab",presses=11, interval=0.8)
+    pyautogui.hotkey("enter")
+
+
+
