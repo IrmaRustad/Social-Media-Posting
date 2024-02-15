@@ -1,2 +1,164 @@
-def subir_video_x(video_id): 
-    pass
+
+
+
+def XPost(video_id):
+
+
+    import pyautogui
+    import time
+    import sqlite3
+    import tkinter as tk
+    import pyperclip
+    import re
+    from datetime import datetime
+    from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha, cambiar_mes_a_texto
+    
+
+    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/ig/videos.db')
+    cursor = conexion.cursor()
+    
+
+
+    metadata_video = obtener_metadata_video(cursor,video_id)
+
+    # Dividir metadata en variables
+    description, videoname, videoType = dividir_metadata(metadata_video)
+
+
+    fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
+
+
+    mes_nombre,dia,año= cambiar_mes_a_texto(cursor, video_id)
+
+    
+
+
+
+
+    #Open search bar
+    pyautogui.hotkey("winleft", "s")    
+    time.sleep(1)
+
+    #Write "Chrome" and press enter
+    pyautogui.write("Chrome")
+    pyautogui.hotkey("enter")
+    time.sleep(3)
+
+    #If there is different users, select the user                             
+    pyautogui.hotkey("tab", "enter")
+    time.sleep(2)
+
+    #Open new tab
+    pyautogui.hotkey("ctrl", "t")
+    time.sleep(1)
+
+    #Search for x
+    url = "https://twitter.com/home"
+
+    pyautogui.write(url)
+    pyautogui.hotkey("enter")
+    time.sleep(6)
+
+    pyautogui.press('tab', presses=14,interval=0.5)
+
+    pyautogui.press("enter")
+
+    time.sleep(2)
+
+
+    pyautogui.write(description)
+    
+    time.sleep(2)
+
+    pyautogui.press('tab', presses=2,interval=0.5)
+
+    pyautogui.hotkey("enter")
+
+    time.sleep(2)
+
+    pyautogui.hotkey("ctrl", "l")
+
+    pyautogui.write("C:/Users/irma/Downloads/pyauto/instagram")
+
+    time.sleep(2)
+
+    pyautogui.hotkey("enter")
+
+    time.sleep(1)
+
+    pyautogui.press("tab", presses=5,interval=0.5) 
+
+    time.sleep(2)
+
+    pyautogui.write(videoname)
+
+    pyautogui.hotkey("down")
+
+    pyautogui.hotkey("enter")
+
+    time.sleep(1)
+
+    pyautogui.press('tab', presses=3,interval=0.5)
+
+    pyautogui.press("enter")
+
+    pyautogui.press("tab", presses=3,interval=0.5)
+
+    time.sleep(2)
+
+    pyautogui.write(mes_nombre)
+
+    time.sleep(2)
+
+
+    pyautogui.press("tab")
+
+    time.sleep(2)
+
+
+    pyautogui.write(str(dia))
+
+    time.sleep(2)
+
+    pyautogui.press("tab", presses=6,interval=0.5)
+
+    pyautogui.write(horas)
+
+    time.sleep(2)
+
+    pyautogui.press("tab")
+
+    time.sleep(2)
+
+    pyautogui.write(minutos)
+
+    time.sleep(2)
+
+    pyautogui.press("tab", presses=3,interval=0.5)
+
+    pyautogui.hotkey("enter")
+
+    time.sleep(150)
+
+    pyautogui.press("tab", presses=16,interval=0.5)
+
+    pyautogui.hotkey("enter")
+
+
+
+
+   
+    
+
+
+
+
+
+
+
+
+
+
+
+
+

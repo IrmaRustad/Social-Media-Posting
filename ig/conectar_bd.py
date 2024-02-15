@@ -58,3 +58,31 @@ def obtener_hora_fecha(cursor, video_id):
     else:
         print("Video no encontrado o falta información.")
         return
+    
+
+def cambiar_mes_a_texto(cursor, video_id):
+    cursor.execute(f"SELECT fecha FROM videos where id = {video_id}")    
+    fila = cursor.fetchone()
+
+
+    if fila:
+        fecha_texto = fila[0]  # Obtener la cadena de texto con la fecha
+
+        # Convertir la cadena de texto a un objeto datetime
+        fecha_objeto = datetime.strptime(fecha_texto, '%d/%m/%Y')
+
+        # Extraer el año, mes y día
+        año = fecha_objeto.year
+        mes = fecha_objeto.month
+        dia = fecha_objeto.day
+
+
+        # Convertir el número del mes a su nombre en inglés
+        mes_nombre = fecha_objeto.strftime('%B')
+        print(mes_nombre)
+
+        return mes_nombre,año,dia
+
+    else:
+        print("No se encontró la fecha.")
+

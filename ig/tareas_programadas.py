@@ -15,15 +15,16 @@ def cargar_video(video_id, social_media, cursor):
     sys.path.append('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/Apps')
     from tiktok import TiktokPost
     from linkedin import LinkedinPost
-    from x import subir_video_x
+    from x import XPost
     from youtube import YoutubePost
+
 
 
 
     # Obtener metadata del video
     metadata_video = obtener_metadata_video(cursor, video_id)
-
-    description, videoname, videoType = metadata_video
+                
+    description, videoname, videoType = metadata_video                      
 
     # Verificar y cargar en la red social correspondiente
     if social_media == 'Meta':
@@ -40,7 +41,7 @@ def cargar_video(video_id, social_media, cursor):
         logging.info(f'Video {video_id} titulo {videoname} subiendo a LinkedIn')
     elif social_media == 'X':
         logging.info(f'Video {video_id} titulo {videoname} subiendo a X')
-        subir_video_x(video_id)
+        XPost(video_id)
 
 # Conectar a la base de datos
 conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/ig/videos.db')   

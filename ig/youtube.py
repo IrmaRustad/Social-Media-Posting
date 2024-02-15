@@ -83,16 +83,16 @@ def YoutubePost(video_id):
 
     pyautogui.press("enter")
 
-    time.sleep(3)
+    time.sleep(5)
 
-    pyautogui.press('tab', presses=2)
+    pyautogui.press('tab', presses=2,interval=0.5)
 
     time.sleep(3)
 
     pyautogui.write(description)
     time.sleep(3)
 
-    pyautogui.press("tab", presses=5)
+    pyautogui.press("tab", presses=5,interval=0.5)
 
     time.sleep(3)
 
@@ -100,49 +100,37 @@ def YoutubePost(video_id):
 
     time.sleep(3)
 
-    pyautogui.press("enter")
+    pyautogui.press("tab", presses=5,interval=0.5)
+
+    pyautogui.hotkey("enter")
+    pyautogui.hotkey("enter")
+    time.sleep(3)
+
+    pyautogui.hotkey("enter")
+
+    pyautogui.press("tab", presses=13,interval=0.5)
+
 
     time.sleep(3)
 
-    pyautogui.press("tab", presses=11, interval=0.5)
+    pyautogui.press("down", presses=2,interval=0.5)
+
+    time.sleep(3)
 
     pyautogui.hotkey("enter")
 
-    pyautogui.press("tab", presses=17, interval=0.5)
-
-    time.sleep(2)
+    pyautogui.press("tab", presses=3,interval=0.5)
 
     pyautogui.hotkey("enter")
-
-
-   
 
     time.sleep(3)
 
     pyautogui.hotkey("tab")
-
-
-    pyautogui.press("down", presses=2, interval=0.5)
-
-    time.sleep(3)
-
-    pyautogui.press("tab", presses=3, interval=0.5)
-
-    time.sleep(3)
-
-    pyautogui.hotkey("enter")
-
-    pyautogui.press("tab", presses=1, interval=0.5)
-
-    time.sleep(3)
-
     pyautogui.hotkey("enter")
 
     time.sleep(3)
 
-    pyautogui.press("backspace", presses=11)
-
-    time.sleep(3)
+    pyautogui.press("backspace", presses=11,interval=0.5)
 
     pyautogui.write(fecha)
 
@@ -152,20 +140,51 @@ def YoutubePost(video_id):
 
     time.sleep(3)
 
-    pyautogui.press("tab", presses=4, interval=0.5)
+    pyautogui.press("tab", presses=4,interval=0.5)
 
-    time.sleep(3)
-
-    pyautogui.press("backspace", presses=5, interval=0.5)
-
-    time.sleep(3)
+    pyautogui.press("backspace", presses=10,interval=0.5)
 
     pyautogui.write(horas)
 
-    time.sleep(3)
+    pyautogui.write(":")
 
-    pyautogui.press("tab", presses=13, interval=0.5)
+    pyautogui.write(minutos)
 
     pyautogui.hotkey("enter")
+
+    time.sleep(20)
+
+    pyautogui.press("tab", presses=13,interval=0.5)
+
+    pyautogui.hotkey("enter")
+
+    time.sleep(3)
+
+
+    pyautogui.press("tab", presses=2,interval=0.5)
+
+    pyautogui.hotkey("enter")
+
+    time.sleep(2)
+
+    YoutubePostUrl = pyperclip.paste()
+
+    cursor.execute(f"UPDATE videos SET url='{YoutubePostUrl}' WHERE id={video_id};")
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+   
+
+    
 
 
