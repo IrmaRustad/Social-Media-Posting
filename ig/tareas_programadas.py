@@ -4,24 +4,23 @@ import logging
 
 
 
+from tiktok import TiktokPost
+from linkedin import LinkedinPost
+from x import XPost
+from youtube import YoutubePost
+
+
+
 logging.basicConfig(filename='social_media_posting.log', 
                         filemode='a', 
                         format='%(asctime)s - %(levelname)s - [%(filename)s] - %(message)s', 
                         datefmt='%Y-%m-%d %H:%M:%S', 
                         level=logging.DEBUG)
 
+
+
 def cargar_video(video_id, social_media, cursor):
-    import sys
-    sys.path.append('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/Apps')
-    from tiktok import TiktokPost
-    from linkedin import LinkedinPost
-    from x import XPost
-    from youtube import YoutubePost
 
-
-
-
-    # Obtener metadata del video
     metadata_video = obtener_metadata_video(cursor, video_id)
                 
     description, videoname, videoType = metadata_video                      
@@ -44,7 +43,7 @@ def cargar_video(video_id, social_media, cursor):
         XPost(video_id)
 
 # Conectar a la base de datos
-conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/ig/videos.db')   
+conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')   
 
 
 
@@ -77,7 +76,7 @@ while True:
         conexion.commit()
 
 # Cerrar la conexión
-cerrar_bd(conexion)
+cerrar_bd(conexion)    
 
 
                                                                 

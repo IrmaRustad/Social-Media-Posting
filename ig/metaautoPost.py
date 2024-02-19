@@ -14,13 +14,15 @@ def autoPostMeta(video_id):
     from MetaStory import publicarStory
     from MetaReel import publicarReel
     from MetaPost import publicarPost
+    from OpenChrome import abrirChromeYSeleccionarPerfil
+
     
 
 
     # Lógica para abrir Chrome y navegar a Facebook Business
-    abrirChromeYFacebookBusiness()
+    
 
-    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 12022024/Social-Media-Posting-main/ig/videos.db')
+    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()
 
     metadata_video = obtener_metadata_video(cursor,video_id)
@@ -31,8 +33,16 @@ def autoPostMeta(video_id):
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
+    cursor.execute("SELECT tblClient.ChromeTabs, tblClient.ClName , videos.social_media FROM videos JOIN tblClient ON videos.ClName = tblClient.ClName WHERE videos.id = ?", (video_id,))
+    ChromeTabs, ClName,social_media = cursor.fetchone()
 
-   
+    resultado = cursor.fetchone()
+    if resultado:
+        ChromeTabs, ClName, social_media = resultado
+
+
+    
+    abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
 
     # Verificar si se obtuvieron resultados
 
@@ -41,7 +51,7 @@ def autoPostMeta(video_id):
         publicarStory(videoname,fecha,horas,minutos,AMoPM)
         print(fecha)
         print(horas)
-        print(minutos) 
+        print(minutos)
     elif videoType == 'post':
         publicarPost(videoname, description,fecha,horas,minutos,AMoPM)
     elif videoType == 'reel':
@@ -49,35 +59,8 @@ def autoPostMeta(video_id):
     else:
         print("Tipo de video no soportado.")
 
-def abrirChromeYFacebookBusiness():
-    
-    #abrir barra de busqueda y buscar "Google Chrome"
-    pyautogui.hotkey("winleft", "s")
-    time.sleep(1)
-
-    #Escribe chrome y abre  
-    pyautogui.write("Chrome")
-    pyautogui.hotkey("enter")
-    time.sleep(3)
-
-    #Si hay varios usuarios, selecciona el primero y enter
-    pyautogui.hotkey("tab", "enter")
-    time.sleep(1)
-    #abre nueva ventana de navegador
-    pyautogui.hotkey("ctrl", "t")
-    time.sleep(1)
 
 
-
-    #buscar youtube
-    url = "https://business.facebook.com/latest/home"
-
-    pyautogui.write(url)
-    pyautogui.hotkey("enter")
-    time.sleep(4)
-
-
-
-
+    conexion.close()
 
 

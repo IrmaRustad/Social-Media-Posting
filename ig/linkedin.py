@@ -10,34 +10,10 @@ def LinkedinPost(video_id):
     import time
     import sqlite3
     from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha
+    from OpenChrome import abrirChromeYSeleccionarPerfil
 
 
-    
-
-    #Open search bar
-    pyautogui.hotkey("winleft", "s")    
-    time.sleep(1)
-
-    #Write "Chrome" and press enter
-    pyautogui.write("Chrome")
-    pyautogui.hotkey("enter")
-    time.sleep(3)
-
-    #If there is different users, select the user                             
-    pyautogui.hotkey("tab", "enter")
-    time.sleep(2)
-
-    pyautogui.PAUSE = 2.5
-
-    #Search for LinkedIn
-    pyautogui.hotkey("ctrl", "t")
-
-    url = "https://www.linkedin.com/feed/"
-    pyautogui.write(url)
-    pyautogui.hotkey("enter")
-
-
-    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/ig/videos.db')
+    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()
     
 
@@ -50,11 +26,21 @@ def LinkedinPost(video_id):
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
-    pyautogui.press('tab', presses=27)
-    pyautogui.hotkey("enter")
+    cursor.execute("SELECT tblClient.ChromeTabs, tblClient.ClName , videos.social_media FROM videos JOIN tblClient ON videos.ClName = tblClient.ClName WHERE videos.id = ?", (video_id,))
+    ChromeTabs, ClName,social_media = cursor.fetchone()
+
+    resultado = cursor.fetchone()
+    if resultado:
+        ChromeTabs, ClName, social_media = resultado
+
+
+    conexion.close()
+
+    abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
 
     
-    
+    pyautogui.press('tab', presses=27)
+    pyautogui.hotkey("enter")
 
    
     pyautogui.write(description)

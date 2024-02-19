@@ -12,9 +12,10 @@ def XPost(video_id):
     import re
     from datetime import datetime
     from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha, cambiar_mes_a_texto
+    from OpenChrome import abrirChromeYSeleccionarPerfil
     
 
-    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/ig/videos.db')
+    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()
     
 
@@ -35,29 +36,16 @@ def XPost(video_id):
 
 
 
-    #Open search bar
-    pyautogui.hotkey("winleft", "s")    
-    time.sleep(1)
+    cursor.execute("SELECT tblClient.ChromeTabs, tblClient.ClName , videos.social_media FROM videos JOIN tblClient ON videos.ClName = tblClient.ClName WHERE videos.id = ?", (video_id,))
+    ChromeTabs, ClName,social_media = cursor.fetchone()
 
-    #Write "Chrome" and press enter
-    pyautogui.write("Chrome")
-    pyautogui.hotkey("enter")
-    time.sleep(3)
+    resultado = cursor.fetchone()
+    if resultado:
+        ChromeTabs, ClName, social_media = resultado
 
-    #If there is different users, select the user                             
-    pyautogui.hotkey("tab", "enter")
-    time.sleep(2)
 
-    #Open new tab
-    pyautogui.hotkey("ctrl", "t")
-    time.sleep(1)
+    abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
 
-    #Search for x
-    url = "https://twitter.com/home"
-
-    pyautogui.write(url)
-    pyautogui.hotkey("enter")
-    time.sleep(6)
 
     pyautogui.press('tab', presses=14,interval=0.5)
 

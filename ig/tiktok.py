@@ -35,7 +35,7 @@ def TiktokPost(video_id):
     pyautogui.write(url)
     pyautogui.hotkey("enter")
 
-    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Social-Media-Posting-main 13022024/Social-Media-Posting-main/ig/videos.db')
+    conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()
 
     pyautogui.press('tab', presses=12,interval=0.5)
