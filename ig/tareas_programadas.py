@@ -62,5 +62,6 @@ while True:
         logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
         conexion.commit()
 
+
 # Cerrar la conexión
 cerrar_bd(conexion)
