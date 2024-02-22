@@ -21,9 +21,10 @@ logging.basicConfig(filename='social_media_posting.log',
 
 def cargar_video(video_id, social_media, cursor):
 
-    metadata_video = obtener_metadata_video(cursor, video_id)
+    metadata_video = obtener_metadata_video(cursor, video_id) 
                 
-    description, videoname, videoType = metadata_video                      
+    description, videoname, videoType,VideoTitle,VideoCover = metadata_video                
+
 
     # Verificar y cargar en la red social correspondiente
     if social_media == 'Meta':
@@ -33,12 +34,12 @@ def cargar_video(video_id, social_media, cursor):
         YoutubePost(video_id)
         logging.info(f'Video {video_id} titulo {videoname} subiendo a Youtube')
     elif social_media == 'Tiktok':                          
-        TiktokPost(video_id)
+        TiktokPost(video_id)        
         logging.info(f'Video {video_id} titulo {videoname} subiendo a TikTok')
-    elif social_media == 'linkedin':
+    elif social_media == 'Linkedin':
         LinkedinPost(video_id)
         logging.info(f'Video {video_id} titulo {videoname} subiendo a LinkedIn')
-    elif social_media == 'X':
+    elif social_media == 'X':       
         logging.info(f'Video {video_id} titulo {videoname} subiendo a X')
         XPost(video_id)
 
@@ -77,6 +78,5 @@ while True:
 
 # Cerrar la conexión
 cerrar_bd(conexion)    
-
 
                                                                 

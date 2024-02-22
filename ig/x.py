@@ -23,13 +23,16 @@ def XPost(video_id):
     metadata_video = obtener_metadata_video(cursor,video_id)
 
     # Dividir metadata en variables
-    description, videoname, videoType = dividir_metadata(metadata_video)
+    description, videoname, videoType,videoTitle,VideoCover = dividir_metadata(metadata_video)
 
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
 
-    mes_nombre,dia,año= cambiar_mes_a_texto(cursor, video_id)
+    mes_nombre,dia= cambiar_mes_a_texto(cursor, video_id)
+
+    print(dia)
+    print(mes_nombre)
 
     
 
@@ -79,6 +82,8 @@ def XPost(video_id):
     time.sleep(2)
 
     pyautogui.write(videoname)
+    
+    time.sleep(2)
 
     pyautogui.hotkey("down")
 
@@ -92,23 +97,25 @@ def XPost(video_id):
 
     pyautogui.press("tab", presses=3,interval=0.5)
 
-    time.sleep(2)
+    time.sleep(3)
 
     pyautogui.write(mes_nombre)
 
-    time.sleep(2)
+    time.sleep(4)
 
 
     pyautogui.press("tab")
 
-    time.sleep(2)
+    time.sleep(3)
 
 
     pyautogui.write(str(dia))
 
-    time.sleep(2)
+    time.sleep(3)
 
-    pyautogui.press("tab", presses=6,interval=0.5)
+    pyautogui.press("tab", presses=6,interval=0.8)
+
+    time.sleep(2)
 
     pyautogui.write(horas)
 

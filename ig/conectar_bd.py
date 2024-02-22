@@ -25,7 +25,7 @@ def obtener_videos_no_posteados(cursor):
 
 def obtener_metadata_video(cursor, video_id):
     try:
-        consulta_select = f"SELECT description, name, type FROM videos WHERE id={video_id};"
+        consulta_select = f"SELECT description, name, type,VideoTitle,VideoCover FROM videos WHERE id={video_id};"
         cursor.execute(consulta_select)
         return cursor.fetchone()
     except sqlite3.Error as e:
@@ -35,10 +35,10 @@ def obtener_metadata_video(cursor, video_id):
 
 def dividir_metadata(metadata):
     if metadata:
-        description, videoname, videoType = metadata
-        return description, videoname, videoType
+        description, videoname,videoType,VideoTitle,VideoCover = metadata
+        return description, videoname, videoType, VideoTitle,VideoCover
     else:
-        return None, None, None
+        return None, None, None,None,None
     
 def obtener_hora_fecha(cursor, video_id):
     cursor.execute(f"SELECT hora FROM videos WHERE id={video_id};")
@@ -60,29 +60,34 @@ def obtener_hora_fecha(cursor, video_id):
         return
     
 
-def cambiar_mes_a_texto(cursor, video_id):
-    cursor.execute(f"SELECT fecha FROM videos where id = {video_id}")    
-    fila = cursor.fetchone()
+from datetime import datetime
 
+def cambiar_mes_a_texto(cursor, video_id):
+    cursor.execute(f"SELECT fecha FROM videos WHERE id = {video_id}")
+    fila = cursor.fetchone()
 
     if fila:
         fecha_texto = fila[0]  # Obtener la cadena de texto con la fecha
 
-        # Convertir la cadena de texto a un objeto datetime
-        fecha_objeto = datetime.strptime(fecha_texto, '%d/%m/%Y')
+        try:
+            # Convertir la cadena de texto a un objeto datetime
+            fecha_objeto = datetime.strptime(fecha_texto, '%Y/%m/%d')
 
-        # Extraer el año, mes y día
-        año = fecha_objeto.year
-        mes = fecha_objeto.month
-        dia = fecha_objeto.day
+            # Extraer el mes y el día
+            mes = fecha_objeto.month
+            dia = fecha_objeto.day
 
+            # Convertir el número del mes a su nombre en inglés
+            mes_nombre = fecha_objeto.strftime('%B')
+            print(mes_nombre)
 
-        # Convertir el número del mes a su nombre en inglés
-        mes_nombre = fecha_objeto.strftime('%B')
-        print(mes_nombre)
+            return mes_nombre, dia
 
-        return mes_nombre,año,dia
+        except ValueError:
+            print("Error: El formato de fecha en la base de datos no es válido.")
+            return None
 
     else:
         print("No se encontró la fecha.")
+        return None
 

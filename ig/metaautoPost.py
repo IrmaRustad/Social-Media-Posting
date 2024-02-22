@@ -28,7 +28,7 @@ def autoPostMeta(video_id):
     metadata_video = obtener_metadata_video(cursor,video_id)
 
     # Dividir metadata en variables
-    description, videoname, videoType = dividir_metadata(metadata_video)
+    description, videoname, videoType,VideoTitle,VideoCover = dividir_metadata(metadata_video)
 
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
