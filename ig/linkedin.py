@@ -4,9 +4,6 @@ conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/
 cursor = conexion.cursor()
 def LinkedinPost(video_id):
 
-
-
-
     #Post auto uploader for LinkedIn
     import pyautogui
     import time
