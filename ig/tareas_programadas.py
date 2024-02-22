@@ -1,15 +1,10 @@
 from conectar_bd import conectar_bd, cerrar_bd, obtener_metadata_video
 from metaautoPost import autoPostMeta 
 import logging
-
-
-
 from tiktok import TiktokPost
 from linkedin import LinkedinPost
 from x import XPost
 from youtube import YoutubePost
-
-
 
 logging.basicConfig(filename='social_media_posting.log', 
                         filemode='a', 
@@ -17,14 +12,9 @@ logging.basicConfig(filename='social_media_posting.log',
                         datefmt='%Y-%m-%d %H:%M:%S', 
                         level=logging.DEBUG)
 
-
-
 def cargar_video(video_id, social_media, cursor):
-
     metadata_video = obtener_metadata_video(cursor, video_id) 
-                
     description, videoname, videoType,VideoTitle,VideoCover = metadata_video                
-
 
     # Verificar y cargar en la red social correspondiente
     if social_media == 'Meta':
@@ -46,8 +36,6 @@ def cargar_video(video_id, social_media, cursor):
 # Conectar a la base de datos
 conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')   
 
-
-
 # Continuar ejecutando hasta que todos los videos estén marcados como 'POSTED'
 while True:
     # Consulta SELECT para obtener videos con estado 'NOT_POSTED'
@@ -62,11 +50,9 @@ while True:
         logging.info('Todos los videos han sido programados. Saliendo del bucle.')
         break
         
-
     # Procesar cada video y marcar como 'POSTED'
     for video in videos_por_programar:
         video_id, name, description, social_media, hora, fecha, posted = video
-
 
         # Cargar el video en la red social correspondiente
         cargar_video(video_id, social_media, cursor)
@@ -77,6 +63,4 @@ while True:
         conexion.commit()
 
 # Cerrar la conexión
-cerrar_bd(conexion)    
-
-                                                                
+cerrar_bd(conexion)

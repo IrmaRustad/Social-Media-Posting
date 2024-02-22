@@ -11,8 +11,6 @@ def LinkedinPost(video_id):
     from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha
     from OpenChrome import abrirChromeYSeleccionarPerfil
 
-
-    
     cursor.execute("SELECT tblClient.ChromeTabs, tblClient.ClName , videos.social_media FROM videos JOIN tblClient ON videos.ClName = tblClient.ClName WHERE videos.id = ?", (video_id,))
     ChromeTabs, ClName,social_media = cursor.fetchone()
 
@@ -20,9 +18,7 @@ def LinkedinPost(video_id):
     if resultado:
         ChromeTabs, ClName, social_media = resultado
 
-
     abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
-
 
     metadata_video = obtener_metadata_video(cursor,video_id)
 
@@ -32,14 +28,8 @@ def LinkedinPost(video_id):
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
-    
-
-    
     pyautogui.press('tab', presses=25,interval=0.5)
     pyautogui.hotkey("enter")
-
-   
-
 
     time.sleep(5)
 
@@ -95,4 +85,3 @@ def LinkedinPost(video_id):
     pyautogui.hotkey("enter")
 
     conexion.close()
-
