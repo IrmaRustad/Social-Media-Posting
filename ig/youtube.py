@@ -68,7 +68,6 @@ def YoutubePost(video_id):
     pyautogui.write(VideoTitle)
 
     time.sleep(3)
-
     pyautogui.press('tab', presses=2,interval=0.5)
 
     time.sleep(3)
