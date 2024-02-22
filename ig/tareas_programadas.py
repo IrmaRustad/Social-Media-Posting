@@ -38,13 +38,13 @@ def cargar_video(video_id, social_media, cursor):
         logging.info(f'Video {video_id} titulo {videoname} subiendo a TikTok')
     elif social_media == 'Linkedin':
         LinkedinPost(video_id)
-        logging.info(f'Video {video_id} titulo {videoname} subiendo a LinkedIn')
     elif social_media == 'X':       
         logging.info(f'Video {video_id} titulo {videoname} subiendo a X')
         XPost(video_id)
 
 # Conectar a la base de datos
 conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')   
+
 
 
 
@@ -76,7 +76,7 @@ while True:
         logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
         conexion.commit()
 
-# Cerrar la conexión
+# Cerrar la conexión    
 cerrar_bd(conexion)    
 
                                                                 

@@ -63,11 +63,45 @@ def LinkedinPost(video_id):
 
     time.sleep(2)
 
+    pyautogui.press('tab', presses=6 , interval=0.5)
+
+    time.sleep(2)
+    pyautogui.hotkey("enter")
+    time.sleep(2)
+    pyautogui.press('tab', presses=2 , interval=0.8)
+    time.sleep(2)
+    pyautogui.hotkey("enter")
+
+    time.sleep(2)
+
+    pyautogui.hotkey("ctrl", "l")
+    time.sleep(2)
+    pyautogui.write("C:/Users/irma/Downloads/pyauto/instagram")
+    time.sleep(2)
+    pyautogui.hotkey("enter")
+
+    pyautogui.press('tab', presses=5, interval=0.8)
+    
+    time.sleep(2)
+
+    pyautogui.write(VideoCover)
+    time.sleep(2)
+    pyautogui.hotkey("down")
+    time.sleep(2)   
+    pyautogui.hotkey("enter")
+
+    time.sleep(2)
+
     pyautogui.press('tab', presses=2 , interval=0.8)
     pyautogui.hotkey("enter")
 
     time.sleep(2)
 
+    pyautogui.press('tab', presses=2 , interval=0.8)
+    pyautogui.hotkey("enter")     
+
+
+    time.sleep(2)
     pyautogui.write(description)
 
     time.sleep(2)   

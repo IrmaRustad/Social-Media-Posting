@@ -44,6 +44,8 @@ def autoPostMeta(video_id):
     
     abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
 
+    time.sleep(2)
+
     # Verificar si se obtuvieron resultados
 
     # Lógica para seleccionar el tipo de publicación basada en video_type

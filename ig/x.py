@@ -31,8 +31,6 @@ def XPost(video_id):
 
     mes_nombre,dia= cambiar_mes_a_texto(cursor, video_id)
 
-    print(dia)
-    print(mes_nombre)
 
     
 
