@@ -80,7 +80,7 @@ def YoutubePost(video_id):
 
     time.sleep(3)
 
-    pyautogui.hotkey("down")
+    pyautogui.press("space")
 
     time.sleep(3)
 
