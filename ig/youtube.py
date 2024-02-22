@@ -1,27 +1,22 @@
+import pyautogui
+import time
+import sqlite3
+import tkinter as tk
+import pyperclip
+import re
+from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha
+from OpenChrome import abrirChromeYSeleccionarPerfil
 
 def YoutubePost(video_id):
-
     #pip install pyautogui
     #-----------------------------------------------
-    import pyautogui
-    import time
-    import sqlite3
-    import tkinter as tk
-    import pyperclip
-    import re
-    from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha
-    from OpenChrome import abrirChromeYSeleccionarPerfil
-
     conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()
     
-
-
     metadata_video = obtener_metadata_video(cursor,video_id)
 
     # Dividir metadata en variables
     description, videoname, videoType,VideoTitle = dividir_metadata(metadata_video)
-
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
@@ -31,9 +26,6 @@ def YoutubePost(video_id):
     resultado = cursor.fetchone()
     if resultado:
         ChromeTabs, ClName, social_media = resultado
-
-    
-
 
     abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
 
@@ -50,7 +42,6 @@ def YoutubePost(video_id):
     time.sleep(3)
     pyautogui.press("space")
 
-
     #Search for specific url in file manager
     pyautogui.write("C:/Users/irma/Downloads/pyauto/instagram")
     pyautogui.hotkey("enter")
@@ -61,10 +52,8 @@ def YoutubePost(video_id):
 
     time.sleep(3)
 
-   
     pyautogui.write(videoname)
     time.sleep(3)
-
 
     pyautogui.hotkey("down")
 
@@ -83,7 +72,6 @@ def YoutubePost(video_id):
     pyautogui.press('tab', presses=2,interval=0.5)
 
     time.sleep(3)
-
 
     pyautogui.write(description)
     time.sleep(3)
@@ -105,7 +93,6 @@ def YoutubePost(video_id):
     pyautogui.hotkey("enter")
 
     pyautogui.press("tab", presses=13,interval=0.5)
-
 
     time.sleep(3)
 
@@ -156,7 +143,6 @@ def YoutubePost(video_id):
 
     time.sleep(3)
 
-
     pyautogui.press("tab", presses=2,interval=0.5)
 
     pyautogui.hotkey("enter")
@@ -167,21 +153,4 @@ def YoutubePost(video_id):
 
     cursor.execute(f"UPDATE videos SET url='{YoutubePostUrl}' WHERE id={video_id};")
 
-
-
-    
     conexion.close()
-
-
-
-
-    
-
-    
-
-
-   
-
-    
-
-
