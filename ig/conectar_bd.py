@@ -32,7 +32,6 @@ def obtener_metadata_video(cursor, video_id):
         print(f"Error al obtener metadata del video: {e}")
         return None
     
-
 def dividir_metadata(metadata):
     if metadata:
         description, videoname,videoType,VideoTitle,VideoCover = metadata
@@ -59,16 +58,12 @@ def obtener_hora_fecha(cursor, video_id):
         print("Video no encontrado o falta información.")
         return
     
-
-from datetime import datetime
-
 def cambiar_mes_a_texto(cursor, video_id):
     cursor.execute(f"SELECT fecha FROM videos WHERE id = {video_id}")
     fila = cursor.fetchone()
 
     if fila:
         fecha_texto = fila[0]  # Obtener la cadena de texto con la fecha
-
         try:
             # Convertir la cadena de texto a un objeto datetime
             fecha_objeto = datetime.strptime(fecha_texto, '%Y/%m/%d')
@@ -86,8 +81,6 @@ def cambiar_mes_a_texto(cursor, video_id):
         except ValueError:
             print("Error: El formato de fecha en la base de datos no es válido.")
             return None
-
     else:
         print("No se encontró la fecha.")
         return None
-

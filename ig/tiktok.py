@@ -1,15 +1,10 @@
 import sqlite3
 from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha
     
-
-
-
 def TiktokPost(video_id):
     #Post auto uploader for LinkedIn
     import pyautogui
     import time
-    
-
 
     #Open search bar
     pyautogui.hotkey("winleft", "s")    
@@ -19,9 +14,6 @@ def TiktokPost(video_id):
     pyautogui.write("Chrome")
     pyautogui.hotkey("enter")
     
-
-
-
     time.sleep(3)
 
     #If there is different users, select the user                             
@@ -42,12 +34,10 @@ def TiktokPost(video_id):
 
     pyautogui.press("enter")
     
-
     metadata_video = obtener_metadata_video(cursor,video_id)
 
     # Dividir metadata en variables
     description, videoname, videoType = dividir_metadata(metadata_video)
-
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
@@ -76,20 +66,3 @@ def TiktokPost(video_id):
     pyautogui.press('tab', presses=6)
 
     pyautogui.hotkey("space")
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

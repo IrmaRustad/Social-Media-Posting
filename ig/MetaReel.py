@@ -18,7 +18,6 @@ def publicarReel(videoname, description,fecha,horas,minutos,AMoPM):
     pyautogui.write("C:/Users/irma/Downloads/pyauto/instagram")
     pyautogui.hotkey("enter")
    
-
     time.sleep(2)
 
     pyautogui.press("tab",presses=5, interval=0.8)
@@ -51,7 +50,6 @@ def publicarReel(videoname, description,fecha,horas,minutos,AMoPM):
     pyautogui.hotkey("enter")
 
     time.sleep(2)
-
 
     pyautogui.press("tab",presses=2, interval=0.8)
 
