@@ -1,5 +1,4 @@
-import pyautogui
-import time
+from imports import pyautogui, time
 
 def publicarPost(videoname, description,fecha,horas,minutos,AMoPM):
 
@@ -38,6 +37,3 @@ def publicarPost(videoname, description,fecha,horas,minutos,AMoPM):
 
     pyautogui.press("tab",presses=11, interval=0.8)
     pyautogui.hotkey("enter")
-
-
-

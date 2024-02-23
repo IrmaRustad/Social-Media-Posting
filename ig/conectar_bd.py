@@ -1,5 +1,5 @@
-import sqlite3
-from datetime import datetime
+from imports import sqlite3
+from imports import datetime
 
 def conectar_bd(ruta):
     try:
@@ -60,8 +60,6 @@ def obtener_hora_fecha(cursor, video_id):
         return
     
 
-from datetime import datetime
-
 def cambiar_mes_a_texto(cursor, video_id):
     cursor.execute(f"SELECT fecha FROM videos WHERE id = {video_id}")
     fila = cursor.fetchone()
@@ -80,7 +78,6 @@ def cambiar_mes_a_texto(cursor, video_id):
             # Convertir el número del mes a su nombre en inglés
             mes_nombre = fecha_objeto.strftime('%B')
             print(mes_nombre)
-
             return mes_nombre, dia
 
         except ValueError:

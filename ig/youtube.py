@@ -1,16 +1,10 @@
+from imports import pyautogui, time, pyperclip, sqlite3
 
 def YoutubePost(video_id):
 
     #pip install pyautogui
     #-----------------------------------------------
-    import pyautogui
-    import time
-    import sqlite3
-    import tkinter as tk
-    import pyperclip
-    import re
-    from conectar_bd import obtener_metadata_video, dividir_metadata, obtener_hora_fecha
-    from OpenChrome import abrirChromeYSeleccionarPerfil
+    from imports import obtener_metadata_video, dividir_metadata, obtener_hora_fecha, abrirChromeYSeleccionarPerfil
 
     conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()

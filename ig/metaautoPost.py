@@ -1,27 +1,9 @@
-import pyautogui
-import time
-import pyperclip
-import sqlite3
-from datetime import datetime
-from conectar_bd import obtener_metadata_video, cerrar_bd, dividir_metadata
-from conectar_bd import obtener_hora_fecha
-
-
-
+from imports import time, sqlite3, obtener_metadata_video, dividir_metadata, datetime, obtener_hora_fecha
 
 def autoPostMeta(video_id):
 
-    from MetaStory import publicarStory
-    from MetaReel import publicarReel
-    from MetaPost import publicarPost
-    from OpenChrome import abrirChromeYSeleccionarPerfil
-
-    
-
-
+    from imports import publicarStory, publicarReel, publicarPost, abrirChromeYSeleccionarPerfil
     # Lógica para abrir Chrome y navegar a Facebook Business
-    
-
     conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()
 
@@ -40,8 +22,6 @@ def autoPostMeta(video_id):
     if resultado:
         ChromeTabs, ClName, social_media = resultado
 
-
-    
     abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
 
     time.sleep(2)
@@ -61,8 +41,4 @@ def autoPostMeta(video_id):
     else:
         print("Tipo de video no soportado.")
 
-
-
     conexion.close()
-
-

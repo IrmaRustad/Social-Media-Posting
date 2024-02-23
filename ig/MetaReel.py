@@ -1,5 +1,4 @@
-import pyautogui
-import time
+from imports import pyautogui, time
 
 def publicarReel(videoname, description,fecha,horas,minutos,AMoPM):
 

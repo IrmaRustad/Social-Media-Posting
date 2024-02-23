@@ -1,9 +1,6 @@
 def abrirChromeYSeleccionarPerfil(ChromeTabs, social_media):
-
-    import pyautogui
-    import sqlite3
-    import time
-
+    from imports import pyautogui, sqlite3, time
+    
     # Suponiendo que 'db_path' es la ruta a tu archivo de base de datos SQLite
     db_path = 'C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db'
     conn = sqlite3.connect(db_path)
