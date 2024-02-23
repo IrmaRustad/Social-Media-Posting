@@ -71,12 +71,3 @@ def publicarStory(videoname,fecha,horas,minutos,AMoPM):
     time.sleep(15)
     pyautogui.press("tab",presses=5, interval=0.8)
     pyautogui.hotkey("enter")
-
-
-
-
-
-
-
-
-    
