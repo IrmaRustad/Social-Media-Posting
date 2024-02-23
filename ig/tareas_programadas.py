@@ -8,6 +8,7 @@ from tiktok import TiktokPost
 from linkedin import LinkedinPost
 from x import XPost
 from youtube import YoutubePost
+from datetime import datetime
 
 
 
@@ -48,10 +49,12 @@ conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Instagram-Post
 
 
 
+import datetime
+
 # Continuar ejecutando hasta que todos los videos estén marcados como 'POSTED'
 while True:
     # Consulta SELECT para obtener videos con estado 'NOT_POSTED'
-    consulta_select = "SELECT id, name, description, social_media,hora,fecha, posted FROM videos WHERE posted='NOT_POSTED';"
+    consulta_select = "SELECT id, name, description, social_media, hora, fecha, posted FROM videos WHERE posted='NOT_POSTED';"
     cursor.execute(consulta_select)
 
     # Obtener los resultados
@@ -61,22 +64,36 @@ while True:
     if not videos_por_programar:
         logging.info('Todos los videos han sido programados. Saliendo del bucle.')
         break
-        
+
+    # Obtener la fecha actual
+    fecha_actual = datetime.datetime.now().date()
 
     # Procesar cada video y marcar como 'POSTED'
     for video in videos_por_programar:
         video_id, name, description, social_media, hora, fecha, posted = video
 
+        # Convertir fecha de string a objeto de fecha
+        fecha_video = datetime.datetime.strptime(fecha, "%Y-%m-%d").date()
 
-        # Cargar el video en la red social correspondiente
-        cargar_video(video_id, social_media, cursor)
+        # Verificar si la red social es "X" o "YouTube" antes de comparar las fechas
+        if social_media in ['X', 'Youtube']:
+            # Verificar si la fecha actual es mayor o igual a la fecha del video
+            if fecha_actual >= fecha_video:
+                # Cargar el video en la red social correspondiente
+                cargar_video(video_id, social_media, cursor)
 
-        # Marcar el video como 'POSTED'
-        cursor.execute(f"UPDATE videos SET posted='POSTED' WHERE id={video_id}")
-        logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
-        conexion.commit()
+                # Marcar el video como 'POSTED'
+                cursor.execute(f"UPDATE videos SET posted='POSTED' WHERE id={video_id}")
+                logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
+                conexion.commit()
+        else:
+            # Para otras redes sociales, cargar directamente sin comparación de fechas
+            cargar_video(video_id, social_media, cursor)
+
+            # Marcar el video como 'POSTED'
+            cursor.execute(f"UPDATE videos SET posted='POSTED' WHERE id={video_id}")
+            logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
+            conexion.commit()
 
 # Cerrar la conexión    
-cerrar_bd(conexion)    
-
-                                                                
+cerrar_bd(conexion)
