@@ -10,7 +10,6 @@ logging.basicConfig(filename='social_media_posting.log',
 def cargar_video(video_id, social_media, cursor):
 
     metadata_video = obtener_metadata_video(cursor, video_id) 
-                
     description, videoname, videoType,VideoTitle,VideoCover = metadata_video                
 
     # Verificar y cargar en la red social correspondiente
