@@ -11,6 +11,7 @@ def abrirChromeYSeleccionarPerfil(ChromeTabs, social_media):
     url = cursor.fetchone()[0]
     
     
+    
     # Abre la barra de búsqueda y busca "Google Chrome"
     pyautogui.hotkey("winleft", "s")
     time.sleep(1)

@@ -1,30 +1,20 @@
 from imports import sqlite3, obtener_metadata_video, dividir_metadata, obtener_hora_fecha
+from OpenChrome import abrirChromeYSeleccionarPerfil
 
 def TiktokPost(video_id):
     #Post auto uploader for LinkedIn
     import pyautogui
     import time
     
-    #Open search bar
-    pyautogui.hotkey("winleft", "s")    
-    time.sleep(1)
 
-    #Write "Chrome" and press enter
-    pyautogui.write("Chrome")
-    pyautogui.hotkey("enter")
-    
-    time.sleep(3)
+    cursor.execute("SELECT tblClient.ChromeTabs, tblClient.ClName , videos.social_media FROM videos JOIN tblClient ON videos.ClName = tblClient.ClName WHERE videos.id = ?", (video_id,))
+    ChromeTabs, ClName,social_media = cursor.fetchone()
 
-    #If there is different users, select the user                             
-    pyautogui.hotkey("tab", "enter")
-    time.sleep(2)
+    resultado = cursor.fetchone()
+    if resultado:
+        ChromeTabs, ClName, social_media = resultado
 
-    pyautogui.PAUSE = 2.5
-
-    #Search for Tiktok creator center
-    url = "https://www.tiktok.com/creator-center/upload?from=upload&lang=en"
-    pyautogui.write(url)
-    pyautogui.hotkey("enter")
+    abrirChromeYSeleccionarPerfil(ChromeTabs, social_media)
 
     conexion = sqlite3.connect('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')
     cursor = conexion.cursor()

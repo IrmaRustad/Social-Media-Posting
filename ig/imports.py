@@ -17,4 +17,6 @@ from tiktok import TiktokPost
 from linkedin import LinkedinPost
 from x import XPost
 from youtube import YoutubePost
-from metaautoPost import autoPostMeta 
+from metaautoPost import autoPostMeta
+from LinkedinTannami import LinkedinPostTannami
+from LinkedinNettskred import LinkedinPostNettskred

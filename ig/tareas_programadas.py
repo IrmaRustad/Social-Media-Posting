@@ -1,5 +1,6 @@
-from imports import conectar_bd, cerrar_bd, obtener_metadata_video, autoPostMeta, TiktokPost, LinkedinPost, XPost, YoutubePost
-from imports import logging, datetime, autoPostMeta
+from imports import conectar_bd, cerrar_bd, obtener_metadata_video, autoPostMeta, TiktokPost, LinkedinPost, XPost, YoutubePost, LinkedinPostTannami, LinkedinPostNettskred  
+from imports import logging, autoPostMeta
+from datetime import datetime
 
 logging.basicConfig(filename='social_media_posting.log', 
                         filemode='a', 
@@ -27,6 +28,12 @@ def cargar_video(video_id, social_media, cursor):
     elif social_media == 'X':       
         logging.info(f'Video {video_id} titulo {videoname} subiendo a X')
         XPost(video_id)
+    elif social_media == 'LinkedinTannami':
+        LinkedinPostTannami(video_id)
+        logging.info(f'Video {video_id} titulo {videoname} subiendo a LinkedinTannami')
+    elif social_media == 'LinkedinNettskred':
+        LinkedinPostNettskred(video_id)
+        logging.info(f'Video {video_id} titulo {videoname} subiendo a LinkedinNettskred')
 
 # Conectar a la base de datos
 conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')   
@@ -46,14 +53,14 @@ while True:
         break
 
     # Obtener la fecha actual
-    fecha_actual = datetime.datetime.now().date()
+    fecha_actual = datetime.now().date()
 
     # Procesar cada video y marcar como 'POSTED'
     for video in videos_por_programar:
         video_id, name, description, social_media, hora, fecha, posted = video
 
         # Convertir fecha de string a objeto de fecha
-        fecha_video = datetime.datetime.strptime(fecha, "%Y-%m-%d").date()
+        fecha_video = datetime.strptime(fecha, "%d/%m/%Y").date()
 
         # Verificar si la red social es "X" o "YouTube" antes de comparar las fechas
         if social_media in ['X', 'Youtube']:
@@ -75,5 +82,6 @@ while True:
             logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
             conexion.commit()
 
-# Cerrar la conexión    
+# Cerrar la conexiónC:/Users/irma/Downloads/pyauto/instagram
+                
 cerrar_bd(conexion)
