@@ -41,7 +41,7 @@ def LinkedinPostTannami(video_id):
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
-    
+    time.sleep(3)
     pyautogui.press('tab', presses=25,interval=0.5)
     pyautogui.hotkey("enter")
 
@@ -67,7 +67,7 @@ def LinkedinPostTannami(video_id):
 
     time.sleep(2)
 
-    pyautogui.press('tab', presses=6 , interval=0.5)
+    pyautogui.press('tab', presses=7 , interval=0.5)
 
     time.sleep(2)
     pyautogui.hotkey("enter")
@@ -119,9 +119,21 @@ def LinkedinPostTannami(video_id):
 
     pyautogui.write(fecha)
 
+    time.sleep(2)
+
     pyautogui.hotkey("tab")
 
+    time.sleep(2)
+
     pyautogui.write(horas)
+
+    time.sleep(2)
+
+    pyautogui.write(":")
+
+    time.sleep(2)
+
+    pyautogui.write(minutos)
 
     time.sleep(2)
 

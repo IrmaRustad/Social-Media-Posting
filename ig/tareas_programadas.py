@@ -29,59 +29,53 @@ def cargar_video(video_id, social_media, cursor):
         logging.info(f'Video {video_id} titulo {videoname} subiendo a X')
         XPost(video_id)
     elif social_media == 'LinkedinTannami':
-        LinkedinPostTannami(video_id)
+        LinkedinPostTannami(video_id)                   
         logging.info(f'Video {video_id} titulo {videoname} subiendo a LinkedinTannami')
     elif social_media == 'LinkedinNettskred':
         LinkedinPostNettskred(video_id)
         logging.info(f'Video {video_id} titulo {videoname} subiendo a LinkedinNettskred')
 
+def parse_fecha(fecha_str):
+    for formato in ["%d/%m/%Y", "%m/%d/%Y"]:
+        try:
+            return datetime.strptime(fecha_str, formato).date()
+        except ValueError:
+            continue
+    raise ValueError(f"La fecha '{fecha_str}' no coincide con los formatos esperados 'dd/mm/yyyy' o 'mm/dd/yyyy'")
+
 # Conectar a la base de datos
 conexion, cursor = conectar_bd('C:/Users/irma/OneDrive/Skrivebord/Instagram-Posting/ig/videos.db')   
 
-# Continuar ejecutando hasta que todos los videos estén marcados como 'POSTED'
 while True:
-    # Consulta SELECT para obtener videos con estado 'NOT_POSTED'
     consulta_select = "SELECT id, name, description, social_media, hora, fecha, posted FROM videos WHERE posted='NOT_POSTED';"
     cursor.execute(consulta_select)
-
-    # Obtener los resultados
     videos_por_programar = cursor.fetchall()
 
-    # Salir del bucle si no hay más videos por programar
     if not videos_por_programar:
         logging.info('Todos los videos han sido programados. Saliendo del bucle.')
         break
 
-    # Obtener la fecha actual
     fecha_actual = datetime.now().date()
 
-    # Procesar cada video y marcar como 'POSTED'
     for video in videos_por_programar:
         video_id, name, description, social_media, hora, fecha, posted = video
 
-        # Convertir fecha de string a objeto de fecha
-        fecha_video = datetime.strptime(fecha, "%d/%m/%Y").date()
+        try:
+            fecha_video = parse_fecha(fecha)
+        except ValueError as e:
+            logging.error(f"Error al analizar la fecha para el video {video_id}: {e}")
+            continue
 
-        # Verificar si la red social es "X" o "YouTube" antes de comparar las fechas
         if social_media in ['X', 'Youtube']:
-            # Verificar si la fecha actual es mayor o igual a la fecha del video
             if fecha_actual >= fecha_video:
-                # Cargar el video en la red social correspondiente
                 cargar_video(video_id, social_media, cursor)
-
-                # Marcar el video como 'POSTED'
                 cursor.execute(f"UPDATE videos SET posted='POSTED' WHERE id={video_id}")
                 logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
                 conexion.commit()
         else:
-            # Para otras redes sociales, cargar directamente sin comparación de fechas
             cargar_video(video_id, social_media, cursor)
-
-            # Marcar el video como 'POSTED'
             cursor.execute(f"UPDATE videos SET posted='POSTED' WHERE id={video_id}")
             logging.info(f'Video {video_id} titulo {name} marcado como POSTED')
             conexion.commit()
 
-# Cerrar la conexiónC:/Users/irma/Downloads/pyauto/instagram
-                
-cerrar_bd(conexion)
+cerrar_bd(conexion) 

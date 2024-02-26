@@ -10,9 +10,7 @@ def XPost(video_id):
     # Dividir metadata en variables
     description, videoname, videoType,videoTitle,VideoCover = dividir_metadata(metadata_video)
 
-    fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
 
-    mes_nombre,dia= cambiar_mes_a_texto(cursor, video_id)
 
     cursor.execute("SELECT tblClient.ChromeTabs, tblClient.ClName , videos.social_media FROM videos JOIN tblClient ON videos.ClName = tblClient.ClName WHERE videos.id = ?", (video_id,))
     ChromeTabs, ClName,social_media = cursor.fetchone()
@@ -61,51 +59,11 @@ def XPost(video_id):
 
     pyautogui.hotkey("enter")
 
-    time.sleep(1)
-
-    pyautogui.press('tab', presses=3,interval=0.5)
-
-    pyautogui.press("enter")
-
-    pyautogui.press("tab", presses=3,interval=0.5)
-
-    time.sleep(3)
-
-    pyautogui.write(mes_nombre)
-
-    time.sleep(4)
-
-    pyautogui.press("tab")
-
-    time.sleep(3)
-
-
-    pyautogui.write(str(dia))
-
-    time.sleep(3)
-
-    pyautogui.press("tab", presses=6,interval=0.8)
-
-    time.sleep(2)
-
-    pyautogui.write(horas)
-
-    time.sleep(2)
-
-    pyautogui.press("tab")
-
-    time.sleep(2)
-
-    pyautogui.write(minutos)
-
-    time.sleep(2)
-
-    pyautogui.press("tab", presses=3,interval=0.5)
-
-    pyautogui.hotkey("enter")
-
     time.sleep(150)
+    
 
-    pyautogui.press("tab", presses=16,interval=0.5)
+    pyautogui.press("tab", presses=5,interval=0.5)
 
     pyautogui.hotkey("enter")
+
+    

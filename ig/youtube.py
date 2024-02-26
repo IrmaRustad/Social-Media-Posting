@@ -14,7 +14,7 @@ def YoutubePost(video_id):
     metadata_video = obtener_metadata_video(cursor,video_id)
 
     # Dividir metadata en variables
-    description, videoname, videoType,VideoTitle = dividir_metadata(metadata_video)
+    description, videoname, videoType,VideoTitle,VideoCover = dividir_metadata(metadata_video)
 
 
     fecha,horas, minutos, AMoPM = obtener_hora_fecha(cursor, video_id)
@@ -86,7 +86,7 @@ def YoutubePost(video_id):
 
     time.sleep(3)
 
-    pyautogui.hotkey("down")
+    pyautogui.hotkey("enter")
 
     time.sleep(3)
 
@@ -120,9 +120,11 @@ def YoutubePost(video_id):
 
     time.sleep(3)
 
-    pyautogui.press("backspace", presses=11,interval=0.5)
+    pyautogui.press("backspace", presses=20)
 
-    pyautogui.write(fecha)
+    fecha_convertida = fecha.replace('/', '.')
+
+    pyautogui.write(fecha_convertida)
 
     time.sleep(3)
 
@@ -132,7 +134,7 @@ def YoutubePost(video_id):
 
     pyautogui.press("tab", presses=4,interval=0.5)
 
-    pyautogui.press("backspace", presses=10,interval=0.5)
+    pyautogui.press("backspace", presses=20)
 
     pyautogui.write(horas)
 

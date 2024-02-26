@@ -107,7 +107,7 @@ def publicarReel(videoname, description,fecha,horas,minutos,AMoPM):
 
     time.sleep(2)
 
-    pyautogui.press("tab",presses=13, interval=0.8)
+    pyautogui.press("tab",presses=12, interval=0.8)
 
     pyautogui.hotkey("enter")
 
